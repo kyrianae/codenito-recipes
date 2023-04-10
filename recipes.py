@@ -47,7 +47,7 @@ def get_recipe():
     for recipe in recipes:
         print (" >"+recipe['name'])
         if recipe['name'] == request.args['name']:
-            logger.info ("Return : "+recipe|'name')
+            logger.info ("Return : "+recipe['name'])
             return recipe
     return "Nothing...."
 
