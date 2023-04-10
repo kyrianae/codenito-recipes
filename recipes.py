@@ -7,7 +7,6 @@ import logging
 name="Recipes"
 app = Flask(name)
 
-
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -17,9 +16,8 @@ def str_now():
 
 @app.route('/hello', methods=['GET'])
 def hello():
-    print (str_now()+"\t"+name+" says: Hello World")
+    logger.info (str_now()+"\t"+name+" says: Hello World")
     return str_now()+"\t"+name+" says: Hello World\n"
-
 
 recipes=[
     {"name":"margarita", "ingredients":["pie","tomato","cheese","mushroom","ham"]},
@@ -27,7 +25,6 @@ recipes=[
     {"name":"cheese","ingredients":["pie","cheese"]},
     {"name":"napolitana","ingredients":["pie","tomato"]}
 ]
-
 
 @app.route('/list', methods=['GET'])
 def get_list():
@@ -40,7 +37,7 @@ def get_list():
 def get_random_recipe():
     print (str_now()+"\t"+name+"\tchoose pizza")
     index=random.randint(0, len(recipes)-1)
-    print (str_now()+"\t"+name+"\tChoosen: "+str(index)+" > "+str(recipes[index]))
+    logger.info (str_now()+"\t"+name+"\tChoosen: "+str(index)+" > "+str(recipes[index]))
     return recipes[index]
 
 @app.route('/get_recipe', methods=['GET'])
@@ -50,6 +47,7 @@ def get_recipe():
     for recipe in recipes:
         print (" >"+recipe['name'])
         if recipe['name'] == request.args['name']:
+            logger.info ("Return : "+recipe|'name')
             return recipe
     return "Nothing...."
 
